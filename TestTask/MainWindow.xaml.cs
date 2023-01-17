@@ -18,11 +18,11 @@ namespace TestTask
         {
             InitializeComponent();
         }
-        
+
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "txt files (.txt)|.txt|All files (.)|.";
+            openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
 
             //Shows the open file dialog and gets the filepath when the user selects a file
             if (openFileDialog.ShowDialog() == true)
@@ -114,7 +114,6 @@ namespace TestTask
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             cancellationTokenSource.Cancel();
-        }
         }
     }
 }
