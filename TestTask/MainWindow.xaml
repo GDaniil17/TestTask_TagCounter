@@ -1,0 +1,30 @@
+﻿<Window x:Class="TestTask.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Tag Counter" Height="450" Width="800" MinHeight="300" MinWidth="300">
+    <Window.Resources>
+        <SolidColorBrush x:Key="WindowBackground" Color="LightSkyBlue"/>
+        <SolidColorBrush x:Key="ForegroundColor" Color="Black"/>
+        <SolidColorBrush x:Key="StackBackground" Color="White"/>
+    </Window.Resources>
+    <Grid Background="{StaticResource WindowBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Height="25" Margin="5">
+            <Button x:Name="btnOpenFile" Click="btnOpenFile_Click" Content="Open File" Foreground="{StaticResource ForegroundColor}" Margin="5,0,5,0"/>
+            <Button x:Name="btnStart" Click="btnStart_Click" Content="Start" Foreground="{StaticResource ForegroundColor}" Margin="0,0,5,0"/>
+            <Button x:Name="btnCancel" Click="btnCancel_Click" Content="Cancel" Foreground="{StaticResource ForegroundColor}" Margin="0,0,5,0"/>
+        </StackPanel>
+
+        <StackPanel Margin="0,5,0,0" x:Name="statusBar" Grid.Row="1" Background="{StaticResource StackBackground}" HorizontalAlignment="Stretch">
+            <TextBlock x:Name="statusBarText" Foreground="{StaticResource ForegroundColor}" Margin="10,10,10,0" TextWrapping="NoWrap"/>
+            <ProgressBar x:Name="progressBar" Visibility="Hidden" Height="30" HorizontalAlignment="Stretch" Grid.Row="2" Margin="10" Foreground="#00FF00"/>
+
+        </StackPanel>
+    </Grid>
+</Window>
