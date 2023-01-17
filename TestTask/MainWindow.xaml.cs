@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Security.Policy;
+using System.Security.Principal;
+using System.Text;
 using System.Threading;
 using System.Windows;
+using System.Windows.Documents;
 using HtmlAgilityPack;
 using Microsoft.Win32;
 
@@ -17,6 +22,7 @@ namespace TestTask
         public MainWindow()
         {
             InitializeComponent();
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
 
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
@@ -57,6 +63,7 @@ namespace TestTask
                 int totalCount = 0;
                 progressBar.Maximum = urls.Length;
                 progressBar.Value = 0;
+                List<string> urlsWithCounter = new List<string>();
 
                 foreach (string url in urls)
                 {
@@ -70,6 +77,8 @@ namespace TestTask
                         if (nodes != null)
                             tagCount = nodes.Count;
                         totalCount += tagCount;
+
+                        urlsWithCounter.Add($"{(url.Length <= 30 ? url : (url.Substring(0, 30) + "..."))} - {tagCount} tags");
 
                         //Checks if the current URL has the maximum number of tags found so far
                         //Updates the maximumCount and maximumUrl variables if the current URL has more tags than the previous maximum
@@ -90,6 +99,8 @@ namespace TestTask
 
                 //Updates the status bar and shows a message box with the total number of tags found and the URL with the maximum number of tags
                 statusBarText.Text = "Processing completed!";
+                urlList.ItemsSource = urlsWithCounter;
+                urlList.SelectedIndex = urlsWithCounter.IndexOf($"{(maximumUrl.Length <= 30 ? maximumUrl : (maximumUrl.Substring(0, 30) + "..."))} - {maximumCount} tags");
                 MessageBox.Show($"Processing completed! \nTotal tags: {totalCount}. \nMaximum tags found at {maximumUrl} - {maximumCount} tags");
             }
             catch (OperationCanceledException)
